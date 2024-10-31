@@ -68,9 +68,59 @@ const uploadVideo = async (req, res, handleErr) => {
   }
 };
 
+
+const getVideoAsset = async (req,res,handleErr)=>{
+  const videoId = req.params.get("videoId")
+  const type = req.params.get("type")
+
+
+  DB.update()
+  const video = DB.videos.find((video)=>video.videoId === videoId)
+
+  if(!video) return handleErr({
+    status:404,
+    message:"Video not found"
+  })
+
+  let file;
+  let mimeType;
+
+  switch(type){
+    case "thumbnail":
+       file = await fs.open(`./storage/${videoId}/thumbnail.jpg`,"r")
+       mimeType = "image/jpeg"
+       break;
+  }
+
+  //grab the file size
+try{
+  const stat = await file.stat()
+
+  const fileStream = file.createReadStream()
+
+  res.setHeader("Content-Type",mimeType)
+  res.setHeader("Content-Length",stat.size)
+  res.status(200)
+
+  await pipeline(fileStream, res);
+
+} catch (e) {
+  console.error(e);
+  handleErr({
+    status: 500,
+    message: "Internal server error"
+  });
+} finally {
+  // Ensure the file handle is closed
+  if (file) {
+    await file.close();
+  }
+}
+};
 const controller = {
   getVideos,
   uploadVideo,
+  getVideoAsset
 };
 
 module.exports = controller;
