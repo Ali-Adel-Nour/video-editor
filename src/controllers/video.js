@@ -71,7 +71,6 @@ const uploadVideo = async (req, res, handleErr) => {
   }
 };
 
-// Extract the audio for a video file (can only be done once per video)
 const extractAudio = async (req, res, handleErr) => {
   const videoId = req.params.get("videoId");
 
@@ -103,6 +102,7 @@ const extractAudio = async (req, res, handleErr) => {
     return handleErr(e);
   }
 };
+
 
 // Return a video asset to the client
 const getVideoAsset = async (req, res, handleErr) => {

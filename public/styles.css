@@ -21,8 +21,8 @@
   --color-red: #e74c3c;
   --color-red-dark: #c0392b;
   --color-red-dark-1: #98281c;
-  
-  
+
+
   --form-text-focus: #3498dbcb;
   --form-text-disabled: #ebebe4;
   --button-blue-disabled: #8fc2db;
@@ -394,6 +394,8 @@ body {
 .button__icon-left {
   margin-right: 0.5rem;
 }
+
+
 
 .button__icon-right {
   margin-left: 0.5rem;
@@ -1122,4 +1124,3 @@ body {
   0%		{ background: #99c8e6;}
   100%	{ background: #99c8e6a8;}
 }
-
